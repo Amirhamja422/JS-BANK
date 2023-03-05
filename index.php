@@ -20,7 +20,7 @@
                 <div class="card h-100">
                 <div class="card-body" style="background: thistle;">
                         <h5 class="card-title">DDEPOST</h5>
-                        <p class="card-text">$1100S<p>
+                        <p class="card-text" id="deposit-total">00<p>
                     </div>
                 </div>
             </div>
@@ -49,7 +49,7 @@
                             <h5 class="card-title">PLEASE DEPOSIT</h5>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1">$</span>
-                                <input type="text" class="form-control" placeholder="amount you went to deposit" aria-label="Username" aria-describedby="basic-addon1">
+                                <input type="text" class="form-control"  id="deposit_input"  placeholder="amount you went to deposit" aria-label="Username" aria-describedby="basic-addon1">
                                 <div class="btn-group" role="group" aria-label="First group">
                                 <button type="button" class="btn btn-primary" id="deposit">SUBMIT</button>
                                 </div>
@@ -63,7 +63,7 @@
                             <h5 class="card-title">PLEASE WITHDRAW</h5>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="basic-addon1">$</span>
-                                <input type="text" class="form-control" id="deposit_input" placeholder="amount you went to withdraw" aria-label="Username" aria-describedby="basic-addon1">
+                                <input type="text" class="form-control" id="withdraw_input" placeholder="amount you went to withdraw" aria-label="Username" aria-describedby="basic-addon1">
                                 <div class="btn-group" role="group" aria-label="First group">
                                 <button type="button" class="btn btn-primary" id="withdraw">SUBMIT</button>
                                 </div>
@@ -103,13 +103,19 @@
         inputField.value ='';
         return value;
     }
+    
+    function updateTotal(fieldId, amount){
+     const totalTag =  document.getElementById(fieldId); 
+     const previousTotalInTex = totalTag.innerText;
+     const previousTotal = parseFloat(previousTotalInTex);
+     const newTotal = previousTotal + amount;
+     totalTag.innerText = newTotal;
+    }
 
 
-    document.getElementById ("withdraw").addEventListener('click',function(){
-    //  console.log("Click");
+    document.getElementById ("deposit").addEventListener('click',function(){
     const amount = getInputValue('deposit_input');
-    console.log(amount);
-
+    updateTotal('deposit-total', amount);
 
     });
 
