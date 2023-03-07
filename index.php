@@ -28,7 +28,7 @@
                 <div class="card h-100">
                 <div class="card-body" style="background: slategray;">
                         <h5 class="card-title">WITHDRAW</h5>
-                        <p class="card-text">$4100</p>
+                        <p class="card-text" id="withdraw-total">00<p>
                     </div>
                 </div>
             </div>
@@ -36,7 +36,7 @@
                 <div class="card h-100">
                     <div class="card-body" style="background: steelblue;">
                         <h5 class="card-title">BALANCE</h5>
-                        <p class="card-text">$1223232</p>
+                        <p class="card-text" id="balance-total">00<p>
                     </div>
                 </div>
             </div>
@@ -111,11 +111,44 @@
      const newTotal = previousTotal + amount;
      totalTag.innerText = newTotal;
     }
+    
 
+    function updateBalance(amount, isAdding){
+        const balanceTag = document.getElementById('balance-total');
+        const balanceInTex = balanceTag.innerText;
+        const previousBalance = parseFloat(balanceInTex);
+
+        let newBalance;
+        if(isAdding == true) {
+            newBalance = previousBalance + amount;
+
+        }else{
+             newBalance = previousBalance - amount;
+
+        }
+        balanceTag.innerText = newBalance;
+    }
 
     document.getElementById ("deposit").addEventListener('click',function(){
     const amount = getInputValue('deposit_input');
-    updateTotal('deposit-total', amount);
+    if(amount>0){
+        updateTotal('deposit-total', amount);
+        updateBalance(amount, true);
+    }
+
+
+    });
+
+
+    // handle withdraw form submission
+    document.getElementById('withdraw').addEventListener('click',function(){
+    const amount = getInputValue('withdraw_input');
+    if(amount>0){
+        updateTotal('withdraw-total', amount);   
+        updateBalance(amount);
+
+    }
+
 
     });
 
